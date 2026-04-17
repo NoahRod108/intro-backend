@@ -13,7 +13,7 @@ const registerUser = async (req, res) => {
     const userExists = await User.findOne({ email: email.toLowerCase() });
 
     if (userExists) {
-      res.status(400).json({ message: "User already exists!" });
+      return res.status(400).json({ message: "User already exists!" });
     }
 
     // Create new user
@@ -35,4 +35,34 @@ const registerUser = async (req, res) => {
   }
 };
 
-export { registerUser };
+const loginUser = async (req, res) => {
+  try {
+    // Check if user exists
+    const { email, password } = req.body;
+
+    const user = await User.findOne({
+      email: email.toLowerCase(),
+    });
+
+    if (!user) return res.status(400).json({ message: "User not found!" });
+
+    // compare passwords
+    const isMatchedPassword = await user.comparePassword(password);
+
+    if (!isMatchedPassword)
+      return res.status(400).json({ message: "Invalid credentials!" });
+
+    res.status(200).json({
+      message: "User logged in!",
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error!" });
+  }
+};
+
+export { registerUser, loginUser };
