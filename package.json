@@ -1,0 +1,32 @@
+{
+  "name": "intro-backend",
+  "version": "1.0.0",
+  "description": "Showcase for backend work and API creation",
+  "keywords": [
+    "API",
+    "REST",
+    "Backend"
+  ],
+  "homepage": "https://github.com/NoahRod108/intro-backend#readme",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/NoahRod108/intro-backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NoahRod108/intro-backend.git"
+  },
+  "license": "ISC",
+  "author": "Noah Rodriguez",
+  "main": "index.js",
+  "scripts": {
+    "start": "node backend/src/index.js",
+    "dev": "nodemon backend/src/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.4.1",
+    "nodemon": "^3.1.14"
+  }
+}
