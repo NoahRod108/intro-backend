@@ -55,7 +55,7 @@ const loginUser = async (req, res) => {
 
     //Add JWT
     const token = jwt.sign({ email }, process.env.JWT_SECRET, {
-      expiresIn: "30d",
+      expiresIn: "5m",
     });
 
     res.status(200).json({
