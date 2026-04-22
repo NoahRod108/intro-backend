@@ -1,4 +1,5 @@
 import { User } from "../models/user.model.js";
+import jwt from "jsonwebtoken";
 
 const registerUser = async (req, res) => {
   try {
@@ -52,6 +53,11 @@ const loginUser = async (req, res) => {
     if (!isMatchedPassword)
       return res.status(400).json({ message: "Invalid credentials!" });
 
+    //Add JWT
+    const token = jwt.sign({ email }, process.env.JWT_SECRET, {
+      expiresIn: "30d",
+    });
+
     res.status(200).json({
       message: "User logged in!",
       user: {
@@ -59,9 +65,30 @@ const loginUser = async (req, res) => {
         username: user.username,
         email: user.email,
       },
+      token,
     });
   } catch (error) {
     res.status(500).json({ message: "Internal server error!", error });
+  }
+};
+
+const verifyToken = (req, res) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ message: "No token provided!" });
+  }
+
+  const token = authHeader.split(" ")[1];
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const { email } = decoded;
+
+    res.status(200).json({ message: email });
+  } catch (error) {
+    return res.status(401).json({ message: "Authentication failed!" }, error);
   }
 };
 
@@ -81,4 +108,4 @@ const logoutUser = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser, logoutUser };
+export { registerUser, loginUser, logoutUser, verifyToken };
