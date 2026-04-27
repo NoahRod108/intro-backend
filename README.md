@@ -16,6 +16,8 @@ A REST API backend built with Node.js, Express, and MongoDB. Includes user authe
 
 - Node.js
 - MongoDB Atlas account (or local MongoDB)
+- test account: test@gmail.com
+- test account password: P@ssw0rd
 
 ### Installation
 
