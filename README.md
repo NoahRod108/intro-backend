@@ -2,6 +2,8 @@
 
 A REST API backend built with Node.js, Express, and MongoDB. Includes user authentication with JWT and bcrypt password hashing, plus full CRUD for posts. You can test CRUD functionality with any API client. You can test the authentication using the simple frontend form I created.
 
+LIVE SITE: https://intro-backend-steel.vercel.app/
+
 ## Tech Stack
 
 - **Runtime**: Node.js (ES Modules)
